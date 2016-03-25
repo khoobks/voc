@@ -39,6 +39,12 @@ public class Set extends org.python.types.Object {
     //     throw new org.python.exceptions.NotImplementedError("__init__() has not been implemented");
     // }
 
+
+    @Override
+    public boolean isHashable() {
+        return false;
+    }
+
     @org.python.Method(
         __doc__ = ""
     )

@@ -41,6 +41,12 @@ public class List extends org.python.types.Object {
     //     throw new org.python.exceptions.NotImplementedError("list.__init__() has not been implemented.");
     // }
 
+
+    @Override
+    public boolean isHashable() {
+        return false;
+    }
+
     @org.python.Method(
         __doc__ = ""
     )

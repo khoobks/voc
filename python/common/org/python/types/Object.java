@@ -222,6 +222,10 @@ public class Object implements org.python.Object {
         return new org.python.types.Int(this.hashCode());
     }
 
+    public boolean isHashable() {
+        return true;
+    }
+
     @org.python.Method(
         __doc__ = ""
     )
