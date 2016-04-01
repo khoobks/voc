@@ -22,6 +22,11 @@ public class Dict extends org.python.types.Object {
         return this.value.hashCode();
     }
 
+    @Override
+    public org.python.Object __hash__() {
+        throw new org.python.exceptions.AttributeError(this, "__hash__");
+    }
+
     public Dict() {
         super();
         this.value = new java.util.HashMap<org.python.Object, org.python.Object>();
@@ -44,12 +49,6 @@ public class Dict extends org.python.types.Object {
     // public org.python.Object __init__() {
     //     throw new org.python.exceptions.NotImplementedError("dict.__init__() has not been implemented.");
     // }
-
-
-    @Override
-    public boolean isHashable() {
-        return false;
-    }
 
     @org.python.Method(
         __doc__ = ""
@@ -185,24 +184,36 @@ public class Dict extends org.python.types.Object {
         __doc__ = ""
     )
     public org.python.Object __getitem__(org.python.Object item) {
-        if (item.isHashable()) {
+        try {
+            // While hashcode is not used, it is not a redundant line.
+            // We are determining if the item is hashable by seeing if an
+            // exception is thrown.
+            org.python.Object hashcode = item.__hash__();
+
             org.python.Object value = this.value.get(item);
             if (value == null) {
                 throw new org.python.exceptions.KeyError(item);
             }
             return value;
+
+        } catch (org.python.exceptions.AttributeError ae) {
+            throw new org.python.exceptions.TypeError(
+                String.format("unhashable type: '%s'", org.Python.typeName(item.getClass())));
         }
-        throw new org.python.exceptions.TypeError(
-            String.format("unhashable type: '%s'", org.Python.typeName(item.getClass())));
     }
 
     @org.python.Method(
         __doc__ = ""
     )
     public void __setitem__(org.python.Object item, org.python.Object value) {
-        if (item.isHashable()) {
+        try {
+            // While hashcode is not used, it is not a redundant line.
+            // We are determining if the item is hashable by seeing if an
+            // exception is thrown.
+            org.python.Object hashcode = item.__hash__();
+
             this.value.put(item, value);
-        } else {
+        } catch (org.python.exceptions.AttributeError ae) {
             throw new org.python.exceptions.TypeError(
                 String.format("unhashable type: '%s'", org.Python.typeName(item.getClass())));
         }

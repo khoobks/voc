@@ -21,6 +21,11 @@ public class Set extends org.python.types.Object {
         return this.value.hashCode();
     }
 
+    @Override
+    public org.python.Object __hash__() {
+        throw new org.python.exceptions.AttributeError(this, "__hash__");
+    }
+
     public Set() {
         super();
         this.value = new java.util.HashSet<org.python.Object>();
@@ -39,11 +44,6 @@ public class Set extends org.python.types.Object {
     //     throw new org.python.exceptions.NotImplementedError("__init__() has not been implemented");
     // }
 
-
-    @Override
-    public boolean isHashable() {
-        return false;
-    }
 
     @org.python.Method(
         __doc__ = ""

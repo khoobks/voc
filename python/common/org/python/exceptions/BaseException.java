@@ -184,11 +184,6 @@ public class BaseException extends java.lang.RuntimeException implements org.pyt
         return new org.python.types.Int(this.hashCode());
     }
 
-    @Override
-    public boolean isHashable() {
-        return true;
-    }
-
     @org.python.Method(
         __doc__ = "Return bool(self)."
     )

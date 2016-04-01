@@ -190,11 +190,6 @@ public class Super implements org.python.Object {
         return new org.python.types.Int(this.hashCode());
     }
 
-    @Override
-    public boolean isHashable() {
-        return this.isHashable();
-    }
-
     @org.python.Method(
         __doc__ = ""
     )
